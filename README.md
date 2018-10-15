@@ -112,14 +112,52 @@ So this is going to be a list of notes about things to do to build this codebase
 
 ### Installing Command-Line Tools (CLT)
 
-First, you're going to need to install the CLT to deal with the issues at-hand. From [This issue with zlib and Python 3.7](https://github.com/pyenv/pyenv/issues/1219):
+First, you're going to need to install the CLT to deal with the issues at-hand. From [this issue with zlib and Python 3.7](https://github.com/pyenv/pyenv/issues/1219):
 
 ```
 sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target
 ```
 
-You'll need this later when installing Python 3.7. The CLT command is required b/c the Mojave SDK doesn't install its headers into /usr/include by default.
+You'll need this later when installing Python 3.7. The CLT command is required b/c the Mojave SDK doesn't install its headers into `/usr/include` by default.
 
+### Getting the baseline infrastructure up-and-going
 
+Using [Homebrew](https://brew.sh) was a god-send. Seriously.
 
+Install / update to the following kegs (and their dependencies and other packages):
 
+- OpenSSL 1.0.2p
+- pyenv (to manage multiple versions of Python 3.x)
+- npm
+- cmake
+
+### Installing and configuring Python 3.7 (the first time)
+
+Use `pyenv` to install Python 3.7 (along with a TON of wheels). Once you've got Python 3.7 installed, use the following command at the root level of the Pineapple codebase directory to setup Python 3.7 as the Python you're going to build against.
+
+```
+$ pyenv local 3.7.0
+```
+
+Once you've done that, you're ready to install all the wheels you'll need to run Jupyter / iPython notebooks through the local webserver. Here's how you do that:
+
+```
+$ pip install -r requirements.txt --no-cache-dir
+```
+
+This should install all the wheels necessary and sufficient to get a Jupyter notebook instance running.
+
+### Disabling Jupyter authentication
+
+Unfortunately, you'll need to do this twice (once for pure Python 3.7 and once again after you get Pineapple running).
+
+In the first instance, go to the `.jupyter/` directory, and type the following:
+
+```
+$ jupyter notebook --generate-config .
+```
+
+Then edit the generated `jupyter_notebook_config.py` file to disable authentication (NOTE: Be clear that you are only hosting locally-served Jupyter notebooks). You can do that by following the instructions here: [Disable Jupyter authentication](https://github.com/jupyter/notebook/issues/2254#issuecomment-321189274)
+
+Set the c.NotebookApp.token parameter to an empty string in the configuration file created as `c.NotebookApp.token = ''`
+```
