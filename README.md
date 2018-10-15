@@ -136,7 +136,7 @@ Install / update to the following kegs (and their dependencies and other package
 
 Use `pyenv` to install Python 3.7 (along with a TON of wheels). Once you've got Python 3.7 installed, use the following command at the root level of the Pineapple codebase directory to setup Python 3.7 as the Python you're going to build against.
 
-To install Python 3.7.0 with `pyenv` and to build it as a framework (which you'll need for Jupyter):
+To install Python 3.7.0 with `pyenv` and to build it as a framework (which you'll need for browser-based Jupyter):
 ```
 $ env PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.7.0
 ```
@@ -192,19 +192,58 @@ Congratulations. You're finally ready to build Pineapple.
 Here's what to do next:
 
 ```
-mkdir build
-cd build
-npm install -g less
-export LDFLAGS="-L/usr/local/opt/openssl/lib -L/usr/local/opt/ncurses/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl/include -I/usr/local/opt/ncurses/include"
-export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
-cmake ..
-make
+$ mkdir build
+$ cd build
+$ npm install -g less
+$ cmake ..
+$ export LDFLAGS="-L/usr/local/opt/openssl/lib -L/usr/local/opt/ncurses/lib"
+$ export CPPFLAGS="-I/usr/local/opt/openssl/include -I/usr/local/opt/ncurses/include"
+$ export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
+$ make
 ```
 
 Once the initial pass of building Pineapple is done (along with its own Python 3.7.0), run the following commands from the `build` directory:
 
 ```
 $ cd python3.7/Python.framework/Versions/3.7/bin
-$ ./pip
+$ ./pip3 install -U pip wheel --no-cache-dir
+$ ./pip install -r ../../../../../../requirements37.txt --no-cache-dir
 ```
+
+There will probably be a few wheels that break on install from the `requirements37.txt`. Just install them individually like so:
+
+```
+$ ./pip install <wheel-name> --no-cache-dir
+```
+
+After you're finished with all of that, you'll need to run the following commands:
+
+```
+$ make custom-install (this will be redundant b/c you already ran pip against the requirements37.txt)
+$ make local-test (this runs the app)
+```
+
+### Disabling the Jupyter authentication for Pineapple:
+
+Go to the following directory:
+
+```
+cd ~/.pineapple/Jupyter
+```
+
+and run the following command:
+
+```
+jupyter notebook --generate-config .
+```
+
+And set the `c.NotebookApp.token` parameter to an empty string to disable authentication.
+
+After that, run:
+
+```
+$ make install
+$ make package
+```
+
+And you're done.
