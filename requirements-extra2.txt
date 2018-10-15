@@ -1,9 +1,9 @@
-ggplot==0.6.8
-pandas==0.16.2
+ggplot==0.11.5
+pandas==0.23.4
 prettyplotlib==0.1.7
-scikit-learn==0.16.1
-scikit-image==0.11.3
-bokeh==0.9.3
-glumpy==1.0.4
-plotly==1.8.4
-seaborn==0.6.0
+scikit-learn==0.20.0
+scikit-image==0.14.1
+bokeh==0.13.0
+glumpy==1.0.6
+plotly==3.3.0
+seaborn==0.9.0
