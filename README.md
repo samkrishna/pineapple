@@ -159,7 +159,7 @@ $ jupyter notebook --generate-config .
 
 Then edit the generated `jupyter_notebook_config.py` file to disable authentication (NOTE: Be clear that you are only hosting locally-served Jupyter notebooks). You can do that by following the instructions here: [Disable Jupyter authentication](https://github.com/jupyter/notebook/issues/2254#issuecomment-321189274)
 
-Set the c.NotebookApp.token parameter to an empty string in the configuration file created as `c.NotebookApp.token = \'\'` This will disable authentication.
+Set the `c.NotebookApp.token` parameter to an empty string in the configuration file created earlier. This will disable authentication.
 ```
 ### Build the wxWidgets source
 
