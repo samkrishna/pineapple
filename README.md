@@ -126,14 +126,22 @@ Using [Homebrew](https://brew.sh) was a god-send. Seriously.
 
 Install / update to the following kegs (and their dependencies and other packages):
 
-- OpenSSL 1.0.2p
+- openssl (OpenSSL 1.0.2p)
 - pyenv (to manage multiple versions of Python 3.x)
 - npm
 - cmake
+- ncurses
 
 ### Installing and configuring Python 3.7 (the first time)
 
 Use `pyenv` to install Python 3.7 (along with a TON of wheels). Once you've got Python 3.7 installed, use the following command at the root level of the Pineapple codebase directory to setup Python 3.7 as the Python you're going to build against.
+
+To install Python 3.7.0 with `pyenv` and to build it as a framework (which you'll need for Jupyter):
+```
+$ env PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.7.0
+```
+
+To set Python 3.7.0 as the "environmental Python" for a given directory tree:
 
 ```
 $ pyenv local 3.7.0
@@ -160,10 +168,12 @@ $ jupyter notebook --generate-config .
 Then edit the generated `jupyter_notebook_config.py` file to disable authentication (NOTE: Be clear that you are only hosting locally-served Jupyter notebooks). You can do that by following the instructions here: [Disable Jupyter authentication](https://github.com/jupyter/notebook/issues/2254#issuecomment-321189274)
 
 Set the `c.NotebookApp.token` parameter to an empty string in the configuration file created earlier. This will disable authentication.
-```
+
 ### Build the wxWidgets source
 
 [Download the wxWidgets source here.](https://www.wxwidgets.org/downloads/)
+
+After decompressing the sourcetree, run the following commands:
 
 ```
 mkdir build-release
@@ -171,4 +181,30 @@ cd build-release
 ../configure --enable-shared --enable-monolithic --with-osx_cocoa CXX='clang++ -std=c++11 -stdlib=libc++' CC=clang --with-macosx-version-min=10.8 --disable-debug --without-liblzma
 make -j4
 sudo make install
+```
+
+After installing the wxWidgets, delete its sourcetree. You won't need it again for this build.
+
+### Build Pineapple
+
+Congratulations. You're finally ready to build Pineapple.
+
+Here's what to do next:
+
+```
+mkdir build
+cd build
+npm install -g less
+export LDFLAGS="-L/usr/local/opt/openssl/lib -L/usr/local/opt/ncurses/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include -I/usr/local/opt/ncurses/include"
+export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
+cmake ..
+make
+```
+
+Once the initial pass of building Pineapple is done (along with its own Python 3.7.0), run the following commands from the `build` directory:
+
+```
+$ cd python3.7/Python.framework/Versions/3.7/bin
+$ ./pip
 ```
