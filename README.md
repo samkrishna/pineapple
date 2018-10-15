@@ -155,6 +155,24 @@ $ pip install -r requirements.txt --no-cache-dir
 
 This should install all the wheels necessary and sufficient to get a Jupyter notebook instance running.
 
+After you've done this, you may or may not need to install a Jupyter kernel. You can test this out by running `jupyter notebook <notebook name>` and watch the console log. If it gives you a message saying something about "kernel failures", you'll need to add the `ipython` kernel.
+
+You can do this by typing:
+
+```
+python3.7 -m ipykernel install
+```
+
+Then after trying to run `jupyter notebook <notebook name>`, you may get a kernel error where jupyter is trying to connect to a Python 3.6 kernel. To fix this, do the following:
+
+1. Type `jupyter kernelspec list` to find out where the `python3` kernel is located
+2. `cd` to the given directory
+3. open `kernel.json` in an editor
+4. Change the `3.6` references to `3.7`
+5. There is no Step 5.
+
+After that, Jupyter should more-or-less run, but now you've got to disable the authentication requirement.
+
 ### Disabling Jupyter authentication under pure Python 3.7
 
 Unfortunately, you'll need to do this twice (once for pure Python 3.7 and once again after you get Pineapple running).
@@ -168,6 +186,8 @@ $ jupyter notebook --generate-config .
 Then edit the generated `jupyter_notebook_config.py` file to disable authentication (NOTE: Be clear that you are only hosting locally-served Jupyter notebooks). You can do that by following the instructions here: [Disable Jupyter authentication](https://github.com/jupyter/notebook/issues/2254#issuecomment-321189274)
 
 Set the `c.NotebookApp.token` parameter to an empty string in the configuration file created earlier. This will disable authentication.
+
+## Building Pineapple
 
 ### Build the wxWidgets source
 
@@ -249,3 +269,9 @@ $ make package
 And you're done.
 
 NOTE: Tried upgrading `pycurl` and `curl` by putting in the updated .zip files. It failed miserably and I gave up after 7-8 compile attempts.
+
+NOTE: In case something goes wrong with the wheel installations, executing some variation of the following command will remove all wheels from your Python package site:
+
+```
+pip freeze | xargs pip uninstall -y
+```
