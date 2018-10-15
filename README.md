@@ -195,10 +195,10 @@ Here's what to do next:
 $ mkdir build
 $ cd build
 $ npm install -g less
-$ cmake ..
 $ export LDFLAGS="-L/usr/local/opt/openssl/lib -L/usr/local/opt/ncurses/lib"
 $ export CPPFLAGS="-I/usr/local/opt/openssl/include -I/usr/local/opt/ncurses/include"
 $ export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
+$ cmake ..
 $ make
 ```
 
@@ -247,3 +247,5 @@ $ make package
 ```
 
 And you're done.
+
+NOTE: Tried upgrading `pycurl` and `curl` by putting in the updated .zip files. It failed miserably and I gave up after 7-8 compile attempts.
