@@ -99,3 +99,27 @@ I found were out of date and I didn't want to hassle with automating it.
 
 Pineapple is a project of Nathan Whitehead, copyright 2015.
 Let me know what you think at nwhitehe [at] gmail.com.
+
+## Notes on 2018-10-14 20:08:12 -0700 (From Sam Krishna)
+
+This **TOOK SOMETHING** to update. Esp. with the following updates:
+
+- Python 3.7
+- iPython 7.x
+- Jupyter 1.0
+
+So this is going to be a list of notes about things to do to build this codebase with updated Python / iPython / Jupyter PLUS all the Data Science goodness. Esp. under macOS Mojave. **IN CASE IT'S NOT CLEAR: THESE BUILD INSTRUCTIONS ARE FOR macOS MOJAVE.**
+
+### Installing Command-Line Tools (CLT)
+
+First, you're going to need to install the CLT to deal with the issues at-hand. From [This issue with zlib and Python 3.7](https://github.com/pyenv/pyenv/issues/1219):
+
+'''
+sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target
+'''
+
+You'll need this later when installing Python 3.7. The CLT command is required b/c the Mojave SDK doesn't install its headers into /usr/include by default.
+
+
+
+
