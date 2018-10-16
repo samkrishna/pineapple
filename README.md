@@ -100,7 +100,7 @@ I found were out of date and I didn't want to hassle with automating it.
 Pineapple is a project of Nathan Whitehead, copyright 2015.
 Let me know what you think at nwhitehe [at] gmail.com.
 
-## Notes on 2018-10-14 20:08:12 -0700 (From Sam Krishna)
+## Notes on 2018-10-14 20:08:12 -0700 (for Python 3.7 + Jupyter on Mojave)
 
 This **TOOK SOMETHING** to update. Esp. with the following updates:
 
