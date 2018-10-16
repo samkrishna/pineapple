@@ -141,11 +141,17 @@ To install Python 3.7.0 with `pyenv` and to build it as a framework (which you'l
 $ env PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.7.0
 ```
 
-To set Python 3.7.0 as the "environmental Python" for a given directory tree:
+To set Python 3.7.0 as the "environmental Python" for a given directory tree (like the 'pineapple' directory tree):
 
 ```
 $ pyenv local 3.7.0
 ```
+
+Upgrade both `pip` and `wheel`:
+
+```
+$ pip install pip wheel -U
+````
 
 Once you've done that, you're ready to install all the wheels you'll need to run Jupyter / iPython notebooks through the local webserver. Here's how you do that:
 
@@ -153,7 +159,7 @@ Once you've done that, you're ready to install all the wheels you'll need to run
 $ pip install -r requirements37.txt --no-cache-dir
 ```
 
-This should install all the wheels necessary and sufficient to get a Jupyter notebook instance running.
+This should install all the wheels necessary and sufficient to get a Jupyter notebook instance running with enough data science goodness.
 
 After you've done this, you may or may not need to install a Jupyter kernel. You can test this out by running `jupyter notebook <notebook name>` and watch the console log. If it gives you a message saying something about "kernel failures", you'll need to add the `ipython` kernel.
 
