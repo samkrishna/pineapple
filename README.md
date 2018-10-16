@@ -183,7 +183,7 @@ After that, Jupyter should more-or-less run, but now you'll likely want to disab
 
 Unfortunately, you'll need to do this twice (once for pure Python 3.7 and once again after you get Pineapple running). (Twice is only for practice and understanding how to make it all work.)
 
-For the first time, go to the `.jupyter/` directory, and type the following:
+For the first time, go to the `~/.jupyter/` directory, and type the following:
 
 ```
 $ jupyter notebook --generate-config .
