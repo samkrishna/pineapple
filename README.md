@@ -150,7 +150,7 @@ $ pyenv local 3.7.0
 Once you've done that, you're ready to install all the wheels you'll need to run Jupyter / iPython notebooks through the local webserver. Here's how you do that:
 
 ```
-$ pip install -r requirements.txt --no-cache-dir
+$ pip install -r requirements37.txt --no-cache-dir
 ```
 
 This should install all the wheels necessary and sufficient to get a Jupyter notebook instance running.
@@ -171,19 +171,19 @@ Then after trying to run `jupyter notebook <notebook name>`, you may get a kerne
 4. Change the `3.6` references to `3.7`
 5. There is no Step 5.
 
-After that, Jupyter should more-or-less run, but now you've got to disable the authentication requirement.
+After that, Jupyter should more-or-less run, but now you'll likely want to disable the authentication requirement.
 
 ### Disabling Jupyter authentication under pure Python 3.7
 
-Unfortunately, you'll need to do this twice (once for pure Python 3.7 and once again after you get Pineapple running).
+Unfortunately, you'll need to do this twice (once for pure Python 3.7 and once again after you get Pineapple running). (Twice is only for practice and understanding how to make it all work.)
 
-In the first instance, go to the `.jupyter/` directory, and type the following:
+For the first time, go to the `.jupyter/` directory, and type the following:
 
 ```
 $ jupyter notebook --generate-config .
 ```
 
-Then edit the generated `jupyter_notebook_config.py` file to disable authentication (NOTE: Be clear that you are only hosting locally-served Jupyter notebooks). You can do that by following the instructions here: [Disable Jupyter authentication](https://github.com/jupyter/notebook/issues/2254#issuecomment-321189274)
+Then edit the generated `jupyter_notebook_config.py` file to disable authentication (NOTE: Be clear that you are **ONLY** hosting locally-served Jupyter notebooks). You can do that by following the instructions here: [Disable Jupyter authentication](https://github.com/jupyter/notebook/issues/2254#issuecomment-321189274)
 
 Set the `c.NotebookApp.token` parameter to an empty string in the configuration file created earlier. This will disable authentication.
 
@@ -193,7 +193,7 @@ Set the `c.NotebookApp.token` parameter to an empty string in the configuration 
 
 [Download the wxWidgets source here.](https://www.wxwidgets.org/downloads/)
 
-After decompressing the sourcetree, run the following commands:
+After decompressing the source tree, run the following commands:
 
 ```
 mkdir build-release
@@ -203,7 +203,7 @@ make -j4
 sudo make install
 ```
 
-After installing the wxWidgets, delete its sourcetree. You won't need it again for this build.
+After installing the wxWidgets, delete its source tree. You won't need it again for the rest of the build process.
 
 ### Build Pineapple
 
@@ -239,13 +239,13 @@ $ ./pip install <wheel-name> --no-cache-dir
 After you're finished with all of that, you'll need to run the following commands:
 
 ```
-$ make custom-install (this will be redundant b/c you already ran pip against the requirements37.txt)
+$ make custom-install (this will be somewhat redundant b/c you already ran pip against the requirements37.txt)
 $ make local-test (this runs the app)
 ```
 
 ### Disabling the Jupyter authentication for Pineapple:
 
-Go to the following directory:
+Now you've got to disable authentication a second time. Go to the following directory:
 
 ```
 cd ~/.pineapple/Jupyter
@@ -262,6 +262,7 @@ And set the `c.NotebookApp.token` parameter to an empty string to disable authen
 After that, run:
 
 ```
+$ make local-test (to check to make sure it runs correctly without authentication)
 $ make install
 $ make package
 ```
