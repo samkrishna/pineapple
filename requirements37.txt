@@ -98,3 +98,4 @@ webencodings==0.5.1
 widgetsnbextension==3.4.2
 wheel==0.32.1
 yolk3k==0.9
+regex==2018.8.29
