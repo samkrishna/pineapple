@@ -136,9 +136,9 @@ Install / update to the following kegs (and their dependencies and other package
 
 Use `pyenv` to install Python 3.7 (along with a TON of wheels). Once you've got Python 3.7 installed, use the following command at the root level of the Pineapple codebase directory to setup Python 3.7 as the Python you're going to build against.
 
-To install Python 3.7.0 with `pyenv` and to build it as a framework (which you'll need for browser-based Jupyter) and to guarantee linking against homebrew's readline and sqlite, use this command:
+To install Python 3.7.0 with `pyenv` and to build it as a framework (which you'll need for browser-based Jupyter) and to guarantee linking against homebrew's **readline** and **sqlite**, use this command:
 ```
-env PYTHON_CONFIGURE_OPTS="--enable-framework --with-openssl=$(brew --prefix openssl)" LDFLAGS="-L$(brew --prefix readline)/lib -L$(brew --prefix sqlite)/lib" CPPFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix sqlite)/include" pyenv install -f -v 3.7.0
+env PYTHON_CONFIGURE_OPTS="--enable-framework --with-openssl=$(brew --prefix openssl)" LDFLAGS="-L$(brew --prefix readline)/lib -L$(brew --prefix sqlite)/lib" CPPFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix sqlite)/include" pyenv install 3.7.0
 ```
 
 To set Python 3.7.0 as the "environmental Python" for a given directory tree (like the 'pineapple' directory tree):
@@ -147,10 +147,10 @@ To set Python 3.7.0 as the "environmental Python" for a given directory tree (li
 $ pyenv local 3.7.0
 ```
 
-Upgrade both `pip` and `wheel`:
+Upgrade both `pip` and `wheel` and `setuptools`:
 
 ```
-$ pip install pip wheel -U
+$ pip install pip wheel setuptools -U
 ````
 
 Once you've done that, you're ready to install all the wheels you'll need to run Jupyter / iPython notebooks through the local webserver. Here's how you do that:
