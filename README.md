@@ -138,7 +138,10 @@ Use `pyenv` to install Python 3.7 (along with a TON of wheels). Once you've got 
 
 To install Python 3.7.0 with `pyenv` and to build it as a framework (which you'll need for browser-based Jupyter) and to guarantee linking against homebrew's **readline** and **sqlite**, use this command:
 ```
-env PYTHON_CONFIGURE_OPTS="--enable-framework --with-openssl=$(brew --prefix openssl)" LDFLAGS="-L$(brew --prefix readline)/lib -L$(brew --prefix sqlite)/lib" CPPFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix sqlite)/include" pyenv install 3.7.0
+env PYTHON_CONFIGURE_OPTS="--enable-framework --with-openssl=$(brew --prefix openssl)" \
+LDFLAGS="-L$(brew --prefix readline)/lib -L$(brew --prefix sqlite)/lib" \
+CPPFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix sqlite)/include" \
+pyenv install 3.7.0
 ```
 
 To set Python 3.7.0 as the "environmental Python" for a given directory tree (like the 'pineapple' directory tree):
